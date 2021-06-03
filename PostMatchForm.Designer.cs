@@ -85,7 +85,6 @@ namespace QuakeApp
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.feelings = new System.Windows.Forms.CheckedListBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -532,15 +531,6 @@ namespace QuakeApp
             this.feelings.Size = new System.Drawing.Size(97, 220);
             this.feelings.TabIndex = 55;
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(0, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(41, 15);
-            this.label20.TabIndex = 56;
-            this.label20.Text = "label20";
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -567,7 +557,6 @@ namespace QuakeApp
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label21);
-            this.Controls.Add(this.label20);
             this.Controls.Add(this.feelings);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
@@ -689,7 +678,6 @@ namespace QuakeApp
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckedListBox feelings;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button button1;
     }
