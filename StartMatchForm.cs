@@ -13,6 +13,7 @@ namespace QuakeApp
 {
     public partial class StartMatchForm : Form
     {
+        float win_loss = 0;
         public StartMatchForm()
         {
             InitializeComponent();
@@ -60,7 +61,7 @@ namespace QuakeApp
             var latest = "SELECT * FROM quakeapp.match ORDER BY timestamp DESC LIMIT 5";
             using var cmd = new MySqlCommand(latest, Program.db_con);
             using MySqlDataReader reader = cmd.ExecuteReader();
-            float win_loss = 0;
+            
             float control = 0;
             int num_records = 0;
             float rocket_acc = 0;
@@ -112,6 +113,71 @@ namespace QuakeApp
                 bool good_lg = lg_acc > .3;
                 bool rail_valid = rail_acc != 0;
                 bool good_rail = false;
+                //determine temper
+                if(win_loss < .3)
+                {
+                    if(feelings.GetItemChecked(0) || feelings.GetItemChecked(2))
+                    {
+                        Program.temper = Program.TEMPER.SUPPORTIVE;
+                    } else if (feelings.GetItemChecked(1))
+                    {
+                        if(Program.temper == Program.TEMPER.SUPPORTIVE)
+                        {
+                            Program.temper = Program.TEMPER.HARSH;
+                        } else
+                        {
+                            Program.temper = Program.TEMPER.NEUTRAL;
+                        }
+                        
+                    } else
+                    {
+                        Program.temper = Program.TEMPER.NEUTRAL;
+                    }
+                } else if(win_loss > .3 && win_loss < .7)
+                {
+                    if (feelings.GetItemChecked(0) || feelings.GetItemChecked(2))
+                    {
+                        Program.temper = Program.TEMPER.SUPPORTIVE;
+                    }
+                    else if (feelings.GetItemChecked(1))
+                    {
+                        if (Program.temper == Program.TEMPER.SUPPORTIVE)
+                        {
+                            Program.temper = Program.TEMPER.HARSH;
+                        }
+                        else
+                        {
+                            Program.temper = Program.TEMPER.NEUTRAL;
+                        }
+
+                    }
+                    else
+                    {
+                        Program.temper = Program.TEMPER.NEUTRAL;
+                    }
+                } else
+                {
+                    if (feelings.GetItemChecked(0) || feelings.GetItemChecked(2))
+                    {
+                        Program.temper = Program.TEMPER.SUPPORTIVE;
+                    }
+                    else if (feelings.GetItemChecked(1))
+                    {
+                        if (Program.temper == Program.TEMPER.SUPPORTIVE)
+                        {
+                            Program.temper = Program.TEMPER.HARSH;
+                        }
+                        else
+                        {
+                            Program.temper = Program.TEMPER.HARSH;
+                        }
+
+                    }
+                    else
+                    {
+                        Program.temper = Program.TEMPER.NEUTRAL;
+                    }
+                }
                 if(rail_valid)
                 {
                     good_rail = rail_acc > .35;
@@ -156,6 +222,17 @@ namespace QuakeApp
                 } else
                 {
                     result += "I know you've been on a rut lately, but that's okay! Take it one game at a time and work on your fundamentals!\n";
+                }
+                //temperament comments
+                if(Program.temper == Program.TEMPER.SUPPORTIVE)
+                {
+                    result += "I know you've got this. You know what you need to work on, so let's focus on it and get this done!";
+                } else if (Program.temper == Program.TEMPER.NEUTRAL)
+                {
+                    result += "I don't have much to say. If you don't know, how can I?";
+                } else
+                {
+                    result += "You better listen to me and buckle down. You're better than this, it's time to for you to show it.";
                 }
                 return result;
             } else

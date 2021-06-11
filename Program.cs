@@ -25,5 +25,12 @@ namespace QuakeApp
             Application.Run(new Form1());
         }
         public static MySqlConnection db_con;
+        public enum TEMPER
+        {
+            HARSH = 0,
+            NEUTRAL = 1,
+            SUPPORTIVE = 2
+        };
+        public static TEMPER temper;
     }
 }
