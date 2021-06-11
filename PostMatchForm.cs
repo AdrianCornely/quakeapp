@@ -179,7 +179,7 @@ namespace QuakeApp
             {
                 if(rail_acc > .35)
                 {
-                    result += "Rail accuracy like that puts you at a significant disadvantage\n";
+                    result += "Wow, way to hit those rails!\n";
                 }
                 result += "Rail accuracy like that puts you at a significant disadvantage\n";
             }
